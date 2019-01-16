@@ -97,13 +97,13 @@ class Cursor
   end
 
   def update_pos(diff)
-    p self.cursor_pos
     self.cursor_pos[0] += diff[0]
     self.cursor_pos[-1] += diff[-1]
     if !board.valid_pos?(cursor_pos)
       self.cursor_pos[0] -= diff[0]
       self.cursor_pos[-1] -= diff[-1]
     end
+    #p self.cursor_pos
   end
 
 end

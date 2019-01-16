@@ -12,27 +12,43 @@ class Display
 
   def render
     board.grid.each_with_index do |row, i|
-      # str = ""
       row.each_with_index do |col, j|
-        if col.is_a? NullPiece
-          el = "x" 
-        else
-          el = "O"
+        case col.symbol
+        when :rook
+          el = " R ".black
+        when :knight
+          el = " H ".black
+        when :bishop
+          el = " B ".black
+        when :queen
+          el = " Q ".black
+        when :king
+          el = " K ".black
+        when :pawn
+          el = " p ".black
+        when :nil
+          el = "   "
         end
+        
+        if (i.even? && j.even?) || (i.odd? && j.odd?)
+          el = el.on_light_blue
+        else
+          el = el.on_blue
+        end
+
         if [i, j] == cursor.cursor_pos
-          el = el.colorize(:blue)
+          el = el.white.on_magenta
         end
         print el
-        # str << el
       end
-      # puts str
       puts
     end
-    # cursor.get_input
+    puts
   end
 
   def render_cursor
     while true
+      system("clear")
       render
       cursor.get_input
     end
